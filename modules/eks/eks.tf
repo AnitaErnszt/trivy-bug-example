@@ -1,8 +1,6 @@
 ################################################################################
 # EKS Module
 ################################################################################
-# trivy:ignore:AVD-AWS-0040
-# trivy:ignore:AVD-AWS-0041
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 20.8.5"
@@ -13,9 +11,9 @@ module "eks" {
   enable_irsa                    = true
 
   cluster_addons = {
-    coredns                = {}
-    kube-proxy             = {}
-    vpc-cni                = {}
+    coredns    = {}
+    kube-proxy = {}
+    vpc-cni    = {}
   }
 
   # External encryption key
@@ -109,7 +107,6 @@ resource "aws_security_group_rule" "metrics_server_ingress" {
 }
 
 # IAM policy to allow nodes to access ECR
-# trivy:ignore:AVD-AWS-0057
 resource "aws_iam_policy" "eks_ecr_access" {
   name = "${local.cluster_name}-eks-ecr-access"
 

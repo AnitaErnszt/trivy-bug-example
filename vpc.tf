@@ -1,8 +1,7 @@
 locals {
   vpc_cidr = "10.0.0.0/16"
 }
-# trivy:ignore:AVD-AWS-0102
-# trivy:ignore:AVD-AWS-0105
+
 module "test_vpc" {
   source = "./modules/vpc"
 

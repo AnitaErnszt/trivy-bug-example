@@ -1,5 +1,5 @@
 locals {
-    service     = "example"
+  service     = "example"
   environment = "development"
-  aws_region = "eu-west-2"
+  aws_region  = "eu-west-2"
 }
