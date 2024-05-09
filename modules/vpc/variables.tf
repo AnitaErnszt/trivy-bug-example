@@ -1,18 +1,18 @@
 variable "vpc_cidr" {
-  type        = string
+  type = string
 }
 
 variable "vpc_name" {
-  type        = string
+  type = string
 }
 
 variable "enable_nat_gateway" {
-  type        = bool
-  default     = true
+  type    = bool
+  default = true
 }
 
 variable "vpc_azs" {
-  type        = list(string)
+  type = list(string)
 }
 
 variable "private_subnets" {

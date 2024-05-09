@@ -1,6 +1,6 @@
 locals {
-  aws_region        = "eu-west-2"
-  environment       = "development"
+  aws_region  = "eu-west-2"
+  environment = "development"
 }
 
 # trivy:ignore:AVD-AWS-0038
@@ -10,10 +10,10 @@ module "eks" {
   name            = "test"
   cluster_version = "1.29"
 
-  environment       = local.environment
-  subnet_ids        = data.aws_subnets.eks_private_subnets.ids
-  aws_region        = local.aws_region
-  vpc_id            = data.aws_vpc.test_vpc.id
+  environment = local.environment
+  subnet_ids  = data.aws_subnets.eks_private_subnets.ids
+  aws_region  = local.aws_region
+  vpc_id      = data.aws_vpc.test_vpc.id
 
   enabled_log_types = ["authenticator", "controllerManager", "scheduler", "api", "audit"]
 

@@ -12,7 +12,6 @@ locals {
   has_private_subnets = length(var.private_subnets.list) > 0
 }
 
-# trivy:ignore:AVD-AWS-0164
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "~> 5.8.1"
@@ -46,8 +45,8 @@ module "vpc" {
   # Create a dedicated NACL if private subnets exist
   # NACL rules are defined outside the public Terraform module, in order to use for_each instead of count
   public_dedicated_network_acl = local.has_public_subnets ? true : false
-  public_inbound_acl_rules  = []
-  public_outbound_acl_rules = []
+  public_inbound_acl_rules     = []
+  public_outbound_acl_rules    = []
 
   #######
   # IGW #

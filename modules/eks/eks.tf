@@ -1,8 +1,6 @@
 ################################################################################
 # EKS Module
 ################################################################################
-# trivy:ignore:AVD-AWS-0040
-# trivy:ignore:AVD-AWS-0041
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 20.8.5"
@@ -13,9 +11,9 @@ module "eks" {
   enable_irsa                    = true
 
   cluster_addons = {
-    coredns                = {}
-    kube-proxy             = {}
-    vpc-cni                = {}
+    coredns    = {}
+    kube-proxy = {}
+    vpc-cni    = {}
   }
 
   # External encryption key
