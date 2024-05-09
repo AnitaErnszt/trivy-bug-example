@@ -3,7 +3,6 @@ locals {
   environment = "development"
 }
 
-# trivy:ignore:AVD-AWS-0038
 module "eks" {
   source = "../../../modules/eks"
 
