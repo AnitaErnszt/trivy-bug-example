@@ -1,0 +1,31 @@
+name: 'TFsec'
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  tfsec:
+    name: 'TFsec'
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - uses: actions/checkout@v4
+        name: Checkout source code
+      
+      - name: Install Terraform CLI
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Run TF init
+        run: terraform init -backend=false
+
+      - name: tfsec
+        uses: aquasecurity/tfsec-action@v1.0.2
+        with:
+          working_directory: .
+          additional_args: --no-colour

@@ -1,0 +1,12 @@
+.terraform
+.terraform.*
+/coverage
+.DS_Store
+
+/vendor
+
+# Local .terraform directories
+**/.terraform/*
+
+terraform.tfstate
+terraform.tfstate.backup

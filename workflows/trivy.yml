@@ -1,0 +1,53 @@
+name: 'Trivy'
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  trivy:
+    name: 'Trivy'
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+    
+    steps:
+      - uses: actions/checkout@v4
+        name: Checkout source code
+
+      - name: Install Terraform CLI
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Run TF init
+        run: terraform init -backend=false
+
+      - name: Run Trivy vulnerability scanner in IaC mode
+        uses: aquasecurity/trivy-action@0.20.0
+        with:
+          scan-type: 'fs'
+          scanners: 'misconfig'
+          scan-ref: .
+          hide-progress: false
+          exit-code: '1'
+          ignore-unfixed: true
+          output: trivy.txt
+        env:
+          TRIVY_TF_EXCLUDE_DOWNLOADED_MODULES: true
+
+      - name: Publish Trivy Output to Summary
+        if: always()
+        run: |
+          if [[ -s trivy.txt ]]; then
+            {
+              echo "### Security Output"
+              echo "<details><summary>Click to expand</summary>"
+              echo ""
+              echo '```terraform'
+              cat trivy.txt
+              echo '```'
+              echo "</details>"
+            } >> $GITHUB_STEP_SUMMARY
+          fi
