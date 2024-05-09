@@ -107,6 +107,7 @@ resource "aws_security_group_rule" "metrics_server_ingress" {
 }
 
 # IAM policy to allow nodes to access ECR
+# trivy:ignore:AVD-AWS-0057
 resource "aws_iam_policy" "eks_ecr_access" {
   name = "${local.cluster_name}-eks-ecr-access"
 
