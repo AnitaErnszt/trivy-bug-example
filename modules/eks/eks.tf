@@ -128,6 +128,28 @@ resource "aws_iam_policy" "eks_ecr_access" {
   })
 }
 
+# IAM policy to allow nodes to access ECR
+# tfsec:ignore:AVD-AWS-0057
+resource "aws_iam_policy" "eks_ecr_access_tfsec_example" {
+  name = "${local.cluster_name}-eks-ecr-access"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "ecr:BatchCheckLayerAvailability",
+          "ecr:BatchGetImage",
+          "ecr:GetDownloadUrlForLayer",
+          "ecr:GetAuthorizationToken",
+        ]
+        Effect   = "Allow"
+        Resource = "*"
+      },
+    ]
+  })
+}
+
 # Cluster KMS encryption key for secret encryption
 module "kms" {
   source  = "terraform-aws-modules/kms/aws"
