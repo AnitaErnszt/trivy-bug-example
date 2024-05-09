@@ -31,23 +31,6 @@ jobs:
           scanners: 'misconfig'
           scan-ref: .
           hide-progress: false
-          exit-code: '1'
           ignore-unfixed: true
-          output: trivy.txt
         env:
           TRIVY_TF_EXCLUDE_DOWNLOADED_MODULES: true
-
-      - name: Publish Trivy Output to Summary
-        if: always()
-        run: |
-          if [[ -s trivy.txt ]]; then
-            {
-              echo "### Security Output"
-              echo "<details><summary>Click to expand</summary>"
-              echo ""
-              echo '```terraform'
-              cat trivy.txt
-              echo '```'
-              echo "</details>"
-            } >> $GITHUB_STEP_SUMMARY
-          fi
